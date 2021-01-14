@@ -6,11 +6,6 @@ import tkinter.font as tkFont
 import os
 from typing import *
 
-''' TODO: 1. 对不同的文件完整性校验时显示不同的对话框   完成√
-          2. 实现对多个文件夹下的文件进行Hash摘要   完成√
-          3. 对一个文件文件夹下文件的完整性进行监控    完成√
-'''
-
 
 def open_files():
     files = askopenfiles('rb')
@@ -115,7 +110,8 @@ class Sha1GUI(object):
         files = os.listdir(dir_path)
         file_dict = {}
         for file in files:
-            if file.find('.') != -1:
+            # 对不选择文件进行防错处理
+            if file.find('.') != -1 and dir_path != '/':
                 with open(dir_path + file, mode='rb') as f:
                     file_dict[f.name] = sha1(f)
         return file_dict
